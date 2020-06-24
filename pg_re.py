@@ -351,16 +351,16 @@ def main():
 
     pa = parameters.Parameters()
 
-    pa.simu_len = 30  # 1000
-    pa.num_ex = 20  #50 # 100
-    pa.num_nw = 10
-    pa.num_seq_per_batch = 20 #20
+    pa.simu_len = 40  # 1000
+    pa.num_ex = 10  #50 # 100
+    pa.num_nw = pa.simu_len
+    pa.num_seq_per_batch = 10 #20
     pa.output_freq = 10 #50
     pa.batch_size = 10
 
     # pa.max_nw_size = 5
     # pa.job_len = 5
-    pa.new_job_rate = 0.4
+    pa.new_job_rate = 1
 
     pa.episode_max_length = 2000  # 2000
 

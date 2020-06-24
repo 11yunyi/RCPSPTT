@@ -44,27 +44,9 @@ class PolicyGradient:
         self.tf_acts = tf.placeholder(tf.int32, [None, ], name="actions_num")
         self.tf_vt = tf.placeholder(tf.float32, [None, ], name="actions_value")
 
-        tf_conv_obs=tf.reshape(self.tf_obs,shape=[-1,self.network_input_height,self.network_input_width,1],name='tf_conv_obs')
-
-        #conv_1
-        conv_1=tf.layers.conv2d(tf_conv_obs,kernel_size=(5,5),filters=8,activation=tf.nn.relu)
-
-        #maxpooling
-        h1_pool = tf.layers.max_pooling2d(conv_1, pool_size=(2, 2), strides=(2, 2))
-
-        # conv_2
-        conv_2 = tf.layers.conv2d(h1_pool, kernel_size=(5, 5), filters=16, activation=tf.nn.relu)
-
-        # maxpooling
-        h2_pool = tf.layers.max_pooling2d(conv_2, pool_size=(2, 2), strides=(2, 2))
-
-        input_shape = h2_pool.get_shape().as_list()
-        n_input_units = np.prod(input_shape[1:])
-        h2_pool_flat = tf.reshape(h2_pool, shape=[-1, n_input_units])
-        # fc1
         layer = tf.layers.dense(
-            inputs=h2_pool_flat,
-            units=20,
+            inputs= self.tf_obs,
+            units=10,
             activation=tf.nn.tanh,  # tanh activation
             kernel_initializer=tf.random_normal_initializer(mean=0, stddev=0.3),
             bias_initializer=tf.constant_initializer(0.1),
